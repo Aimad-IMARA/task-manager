@@ -30,6 +30,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task createTask(Task task) {
+        if (task.getStatus() == null || task.getStatus().isBlank()) {
+            task.setStatus("TODO");
+        }
         return taskRepository.save(task);
     }
 
@@ -47,6 +50,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void deleteTask(Long id) {
+        if(!taskRepository.existsById(id)) {
+            throw new EntityNotFoundException("Task not found with id: " + id);
+        }
         taskRepository.deleteById(id);
     }
 }
