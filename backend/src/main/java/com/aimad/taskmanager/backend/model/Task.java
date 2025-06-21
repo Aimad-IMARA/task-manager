@@ -21,8 +21,11 @@ public class Task {
 
     private String description;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String status = "TODO"; // Default value
+    private Status status = Status.TODO;
+
+    private LocalDateTime updatedAt;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 }

@@ -1,11 +1,13 @@
 package com.aimad.taskmanager.backend.service.impl;
 
+import com.aimad.taskmanager.backend.model.Status;
 import com.aimad.taskmanager.backend.model.Task;
 import com.aimad.taskmanager.backend.repository.TaskRepository;
 import com.aimad.taskmanager.backend.service.TaskService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +32,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task createTask(Task task) {
-        if (task.getStatus() == null || task.getStatus().isBlank()) {
-            task.setStatus("TODO");
+        if (task.getStatus() == null) {
+            task.setStatus(Status.TODO);
         }
         return taskRepository.save(task);
     }
@@ -44,6 +46,7 @@ public class TaskServiceImpl implements TaskService {
         task.setTitle(updatedTask.getTitle());
         task.setDescription(updatedTask.getDescription());
         task.setStatus(updatedTask.getStatus());
+        task.setUpdatedAt(LocalDateTime.now());
 
         return taskRepository.save(task);
     }
