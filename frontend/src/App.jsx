@@ -4,6 +4,7 @@ import TaskList from "./pages/TaskList.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import {useAuth} from "./context/AuthContext.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
 
 function App() {
     const { user, logout } = useAuth();
@@ -51,9 +52,9 @@ function App() {
               </nav>
               <div className="max-w-4xl mx-auto">
                   <Routes>
-                      <Route path="/" element={<TaskList />} />
-                      <Route path="/new" element={<TaskForm />} />
-                      <Route path="/edit/:id" element={<TaskForm />} />
+                      <Route path="/" element={<PrivateRoute><TaskList /></PrivateRoute>} />
+                      <Route path="/new" element={<PrivateRoute><TaskForm /></PrivateRoute>} />
+                      <Route path="/edit/:id" element={<PrivateRoute><TaskForm /></PrivateRoute>} />
                       <Route path="/login" element={<Login />} />
                       <Route path="/register" element={<Register />} />
                   </Routes>
