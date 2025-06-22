@@ -24,7 +24,7 @@ function TaskList() {
                 <ul>
                     {tasks.map(task => (
                         <li key={task.id}>
-                            <strong>{task.title}</strong> — {task.status} | <Link to={`/edit/${task.id}`}>Edit</Link>
+                            <strong>{task.title}</strong> - {task.status} | <Link to={`/edit/${task.id}`}>Edit</Link>
                         </li>
                     ))}
                 </ul>
