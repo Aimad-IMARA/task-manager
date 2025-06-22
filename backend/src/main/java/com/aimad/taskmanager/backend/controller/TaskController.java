@@ -1,9 +1,12 @@
 package com.aimad.taskmanager.backend.controller;
 
 import com.aimad.taskmanager.backend.model.Task;
+import com.aimad.taskmanager.backend.model.User;
 import com.aimad.taskmanager.backend.service.TaskService;
+import com.aimad.taskmanager.backend.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,14 +17,18 @@ import java.util.List;
 public class TaskController {
 
     private final TaskService taskService;
+    private final UserService userService;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, UserService userService) {
         this.taskService = taskService;
+        this.userService = userService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Task>> getAllTasks() {
-        return ResponseEntity.ok(taskService.getAllTasks());
+    public ResponseEntity<List<Task>> getAllTasks(Authentication auth) {
+        String username = auth.getName();
+        User user = userService.findByUsername(username);
+        return ResponseEntity.ok(taskService.getAllTasksForUser(user.getId()));
     }
 
     @GetMapping("/{id}")
