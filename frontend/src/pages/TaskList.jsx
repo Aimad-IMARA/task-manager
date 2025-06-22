@@ -23,6 +23,12 @@ function TaskList() {
             .catch(err => console.error("Error deleting task", err));
     }
 
+    const statusLabels = {
+        TODO: 'To Do',
+        IN_PROGRESS: 'In Progress',
+        DONE: 'Done'
+    };
+
     return (
         <div>
             <h2>Task List</h2>
@@ -32,7 +38,7 @@ function TaskList() {
                 <ul>
                     {tasks.map(task => (
                         <li key={task.id}>
-                            <strong>{task.title}</strong> - {task.status} | <Link to={`/edit/${task.id}`}>Edit</Link> | <button onClick={()=> handleDelete(task.id)}> Delete</button>
+                            <strong>{task.title}</strong> - {statusLabels[task.status]} | <Link to={`/edit/${task.id}`}>Edit</Link> | <button onClick={()=> handleDelete(task.id)}> Delete</button>
                         </li>
                     ))}
                 </ul>

@@ -45,6 +45,12 @@ function TaskForm() {
             });
     };
 
+    const statusLabels = {
+        TODO: 'To Do',
+        IN_PROGRESS: 'In Progress',
+        DONE: 'Done'
+    };
+
     return (
         <div>
             <h2>{isEditing ? 'Edit Task' : 'Add New Task'}</h2>
@@ -73,9 +79,9 @@ function TaskForm() {
                 <div>
                     <label>Status:</label><br />
                     <select name="status" value={task.status} onChange={handleChange}>
-                        <option value="TODO">TODO</option>
-                        <option value="IN_PROGRESS">IN_PROGRESS</option>
-                        <option value="DONE">DONE</option>
+                        {Object.entries(statusLabels).map(([value, label]) => (
+                            <option key={value} value={value}>{label}</option>
+                        ))}
                     </select>
                 </div>
 
