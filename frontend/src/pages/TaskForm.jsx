@@ -9,6 +9,7 @@ function TaskForm() {
         status: 'TODO'
     });
 
+    const [errors, setErrors] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
     const isEditing = Boolean(id);
@@ -27,13 +28,21 @@ function TaskForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setErrors({});
+
         const request = isEditing
             ? api.put(`/tasks/${id}`, task)
             : api.post('/tasks', task);
 
         request
             .then(() => navigate('/'))
-            .catch(err => console.error("Error saving task", err));
+            .catch(err => {
+                if (err.response && err.response.status === 400) {
+                    setErrors(err.response.data);
+                } else {
+                    console.error("Unexpected error", err);
+                }
+            });
     };
 
     return (
@@ -47,8 +56,8 @@ function TaskForm() {
                         name="title"
                         value={task.title}
                         onChange={handleChange}
-                        required
                     />
+                    {errors.title && <div style={{ color: 'red' }}>{errors.title}</div>}
                 </div>
 
                 <div>
@@ -58,6 +67,7 @@ function TaskForm() {
                         value={task.description}
                         onChange={handleChange}
                     />
+                    {errors.description && <div style={{ color: 'red' }}>{errors.description}</div>}
                 </div>
 
                 <div>

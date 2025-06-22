@@ -3,7 +3,7 @@
 *.log
 
 /frontend/node_modules/
-
+.vite/
 .DS_Store
 .idea/
 *.iml
