@@ -1,9 +1,19 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route, Link, useNavigate} from 'react-router-dom';
 import TaskForm from "./pages/TaskForm.jsx";
 import TaskList from "./pages/TaskList.jsx";
 import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import {useAuth} from "./context/AuthContext.jsx";
 
 function App() {
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate("/login");
+    };
+
 
   return (
       <Router>
@@ -17,9 +27,26 @@ function App() {
                       <Link to="/new" className="text-green-600 hover:underline">
                           New Task
                       </Link>
-                      <Link to="/login" className="text-gray-600 hover:underline">
-                          Login
-                      </Link>
+
+                      {user ? (
+                          <>
+                              <button
+                                  onClick={handleLogout}
+                                  className="text-red-500 hover:underline"
+                              >
+                                  Logout
+                              </button>
+                          </>
+                      ) : (
+                          <>
+                              <Link to="/login" className="text-gray-600 hover:underline">
+                                  Login
+                              </Link>
+                              <Link to="/register" className="text-gray-600 hover:underline">
+                                  Register
+                              </Link>
+                          </>
+                      )}
                   </div>
               </nav>
               <div className="max-w-4xl mx-auto">
@@ -28,6 +55,7 @@ function App() {
                       <Route path="/new" element={<TaskForm />} />
                       <Route path="/edit/:id" element={<TaskForm />} />
                       <Route path="/login" element={<Login />} />
+                      <Route path="/register" element={<Register />} />
                   </Routes>
               </div>
           </div>
