@@ -64,7 +64,6 @@ function TaskForm() {
                         value={task.title}
                         onChange={handleChange}
                         className="w-full border px-3 py-2 rounded"
-                        required
                     />
                     {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
                 </div>
@@ -76,7 +75,6 @@ function TaskForm() {
                         value={task.description}
                         onChange={handleChange}
                         className="w-full border px-3 py-2 rounded"
-                        required
                     />
                     {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
                 </div>
