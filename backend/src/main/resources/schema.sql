@@ -1,0 +1,1 @@
+create table task (created_at datetime(6), id bigint not null auto_increment, updated_at datetime(6), title varchar(100) not null, description varchar(255), status enum ('DONE','IN_PROGRESS','TODO') not null, primary key (id)) engine=InnoDB;
