@@ -28,6 +28,11 @@ public class Task {
     @Column(nullable = false)
     private Status status = Status.TODO;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
     private LocalDateTime updatedAt;
 
     private LocalDateTime createdAt = LocalDateTime.now();
