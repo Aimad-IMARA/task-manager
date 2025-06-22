@@ -17,7 +17,6 @@ function App() {
 
 
   return (
-      <Router>
           <div className="min-h-screen bg-gray-100 py-4">
               <nav className="mb-6 flex justify-between items-center shadow-sm pb-4 px-4">
                   <h1 className="text-xl font-bold text-gray-600">Task Manager</h1>
@@ -60,7 +59,6 @@ function App() {
                   </Routes>
               </div>
           </div>
-      </Router>
   )
 }
 
