@@ -26,6 +26,13 @@ Users can create, edit, delete, and view tasks through a clean and responsive UI
 - MySQL
 - Initial schema provided in `schema.sql`
 
+### Authentication & Security
+
+- Users can register and log in securely
+- JWT-based authentication with protected routes
+- Authenticated users can only manage their own tasks
+- Logout and session handling via React Context API
+
 ## Project Structure
 
 ```
@@ -105,6 +112,20 @@ task-manager/
 - Simple and clean routing between pages
 
 ---
+
+### API Endpoints
+
+#### Auth
+
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Authenticate and receive a JWT
+
+#### Tasks (requires authentication)
+
+- `GET /api/tasks` - List tasks for the logged-in user
+- `POST /api/tasks` - Create a new task
+- `PUT /api/tasks/{id}` - Update an existing task
+- `DELETE /api/tasks/{id}` - Delete a task
 
 ## Author
 
