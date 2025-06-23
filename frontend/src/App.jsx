@@ -21,32 +21,19 @@ function App() {
               <nav className="mb-6 flex justify-between items-center shadow-sm pb-4 px-4">
                   <h1 className="text-xl font-bold text-gray-600">Task Manager</h1>
                   <div className="space-x-4">
-                      <Link to="/" className="text-blue-600 hover:underline">
-                          My Tasks
-                      </Link>
-                      <Link to="/new" className="text-green-600 hover:underline">
-                          New Task
-                      </Link>
-
                       {user ? (
                           <>
-                              <button
-                                  onClick={handleLogout}
-                                  className="text-red-500 hover:underline"
-                              >
-                                  Logout
-                              </button>
+                              <Link to="/" className="text-blue-600 hover:underline">My Tasks</Link>
+                              <Link to="/new" className="text-green-600 hover:underline">New Task</Link>
+                              <button onClick={handleLogout} className="text-red-500 hover:underline">Logout</button>
                           </>
                       ) : (
                           <>
-                              <Link to="/login" className="text-gray-600 hover:underline">
-                                  Login
-                              </Link>
-                              <Link to="/register" className="text-gray-600 hover:underline">
-                                  Register
-                              </Link>
+                              <Link to="/login" className="text-gray-600 hover:underline">Login</Link>
+                              <Link to="/register" className="text-gray-600 hover:underline">Register</Link>
                           </>
                       )}
+
                   </div>
               </nav>
               <div className="max-w-4xl mx-auto">

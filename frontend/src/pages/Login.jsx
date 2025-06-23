@@ -23,14 +23,14 @@ export default function Login() {
 
             const token = res.data.token;
             login(username, token);
-            navigate("/tasks");
+            navigate("/");
         } catch {
             setError("Invalid credentials. Please try again.");
         }
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
+        <div className="flex items-center justify-center px-4 pt-15">
             <form
                 onSubmit={handleLogin}
                 className="bg-white shadow-md rounded p-6 w-full max-w-sm"
