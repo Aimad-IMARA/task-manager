@@ -7,13 +7,13 @@ import com.aimad.taskmanager.backend.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/tasks")
-@CrossOrigin(origins = "*")
 public class TaskController {
 
     private final TaskService taskService;
@@ -39,8 +39,13 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
+    public ResponseEntity<Task> createTask(@Valid @RequestBody Task task, Authentication authentication) {
+        String username = authentication.getName();
+        User user = userService.findByUsername(username);
+
+        task.setUser(user);
         Task created = taskService.createTask(task);
+
         return ResponseEntity.ok(created);
     }
 
