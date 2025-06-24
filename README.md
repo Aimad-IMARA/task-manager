@@ -32,6 +32,8 @@ Users can create, edit, delete, and view tasks through a clean and responsive UI
 - JWT-based authentication with protected routes
 - Authenticated users can only manage their own tasks
 - Logout and session handling via React Context API
+- Passwords must be strong: min 8 characters, including uppercase, lowercase, number, and special character
+- All validation errors are clearly shown in the frontend form
 
 ## Project Structure
 
@@ -110,6 +112,7 @@ task-manager/
 - Responsive layout with Tailwind CSS
 - Scrollable task list with clean scrollbar
 - Simple and clean routing between pages
+- Real-time registration feedback with validation messages
 
 ---
 
