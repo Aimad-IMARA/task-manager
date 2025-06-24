@@ -6,16 +6,17 @@ export default function Register() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirm, setConfirm] = useState("");
-    const [error, setError] = useState("");
+    const [errors, setErrors] = useState({});
+
 
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        setError("");
+        setErrors({});
 
         if (password !== confirm) {
-            setError("Passwords do not match.");
+            setErrors({match: "Passwords do not match."});
             return;
         }
 
@@ -25,8 +26,12 @@ export default function Register() {
                 password,
             });
             navigate("/login");
-        } catch {
-            setError("Registration failed. Username might be taken.");
+        } catch (err) {
+            if (err.response && err.response.data) {
+                setErrors(err.response.data);
+            } else {
+                console.error(err);
+            }
         }
     };
 
@@ -37,9 +42,6 @@ export default function Register() {
                 className="bg-white shadow-md rounded p-6 w-full max-w-sm"
             >
                 <h2 className="text-2xl font-bold mb-4 text-center text-gray-700">Register</h2>
-
-                {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-
                 <div className="mb-4">
                     <label className="block mb-1 text-sm text-gray-600">Username</label>
                     <input
@@ -47,9 +49,9 @@ export default function Register() {
                         className="w-full border border-gray-300 p-2 rounded"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        required
                     />
                 </div>
+                {errors.username && <p className="text-red-500 text-sm mb-4">{errors.username}</p>}
 
                 <div className="mb-4">
                     <label className="block mb-1 text-sm text-gray-600">Password</label>
@@ -58,9 +60,9 @@ export default function Register() {
                         className="w-full border border-gray-300 p-2 rounded"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        required
                     />
                 </div>
+                {errors.password && <p className="text-red-500 text-sm mb-4">{errors.password}</p>}
 
                 <div className="mb-6">
                     <label className="block mb-1 text-sm text-gray-600">Confirm Password</label>
@@ -69,9 +71,9 @@ export default function Register() {
                         className="w-full border border-gray-300 p-2 rounded"
                         value={confirm}
                         onChange={(e) => setConfirm(e.target.value)}
-                        required
                     />
                 </div>
+                {errors.match && <p className="text-red-500 text-sm mb-4">{errors.match}</p>}
 
                 <button
                     type="submit"

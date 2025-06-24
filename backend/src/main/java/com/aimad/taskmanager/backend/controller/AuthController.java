@@ -6,12 +6,16 @@ import com.aimad.taskmanager.backend.dto.UserDto;
 import com.aimad.taskmanager.backend.model.User;
 import com.aimad.taskmanager.backend.service.UserService;
 import com.aimad.taskmanager.backend.util.JwtUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -23,10 +27,11 @@ public class AuthController {
     private final JwtUtil jwtUtil;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserDto request) {
+    public ResponseEntity<?> register(@Valid @RequestBody UserDto request) {
         if (userService.existsByUsername(request.getUsername())) {
-            return ResponseEntity.badRequest().body("This username already exists.");
-        }
+            Map<String, String> errors = new HashMap<>();
+            errors.put("username", "This username already exists.");
+            return ResponseEntity.badRequest().body(errors);        }
 
         User user = new User();
         user.setUsername(request.getUsername());
