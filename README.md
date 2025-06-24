@@ -100,7 +100,7 @@ task-manager/
    ```
 
 4. App should be available at:  
-   [http://localhost:5173](http://localhost:5173)
+   [http://localhost:5174](http://localhost:5174)
 
 ---
 
